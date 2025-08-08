@@ -1,0 +1,11 @@
+environment:
+  language: python
+  version: "3.11"
+
+setup:
+  - "docker network create keploy-network || true"
+  - "docker-compose down || true"  # Clean up any existing containers
+
+record_command: "record -c 'docker compose up' --container-name 'fastapi-app' --build-delay 50"
+
+test_command: "test -c 'docker compose up' --container-name 'fastapi-app' --build-delay 50 --delay 10"
